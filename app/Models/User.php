@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
 
-  
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,7 +52,7 @@ class User extends Authenticatable
     ];
 
 
-    public function blood()
+    public function blood_type()
     {
 
         return $this->belongsTo(BloodType::class);
