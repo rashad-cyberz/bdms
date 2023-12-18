@@ -13,12 +13,11 @@ class UsersList extends Component
     public $pincode = '';
     public $group = "All";
 
-
     public function mount()
     {
 
 
-        $this->pincode = auth()->user()->zip_code;
+        $this->pincode = auth()->user()->zip_code ?? 673633;
     }
     public function render()
     {

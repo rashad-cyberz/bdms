@@ -55,8 +55,12 @@
         <div class="flex mt-4">
             <div class="w-30 flex items-center justify-center bg-blue-lighter  text-blue-dark">
 
-                <x-select disabled name="dial_code" class="block mt-1 w-full" required autofocus autocomplete="dial_code"
-                    :options="['91' => '+91']" />
+                <x-select disabled name="dial_code" class="block mt-1 w-full" required autofocus autocomplete="dial_code">
+
+
+                    <option value="91">+91</option>
+
+                </x-select>
 
             </div>
             <x-text-input disabled id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile', $user->mobile)"
@@ -78,7 +82,7 @@
 
         <div class="mt-4" id="pincodeNameContainer">
             <x-input-label for="pincode_name" :value="__('Area Name')" />
-            <x-select  disabled name="pincode_name" id="pincodeName" class="block mt-1 w-full" :options="[]"></x-select>
+            <x-select  disabled name="pincode_name" id="pincodeName" class="block mt-1 w-full" ></x-select>
             <x-input-error :messages="$errors->get('pincode_name')" class="mt-2" />
 
         </div>

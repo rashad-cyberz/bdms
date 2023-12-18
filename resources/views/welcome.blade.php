@@ -10,9 +10,22 @@
                     <i class="fa-solid fa-plus"></i> Add Donor
                 </x-btn-link>
 
+
+                @else
+
+                <x-btn-link class="float-right " href="{{ route('register') }}">
+
+                    <i class="fa-solid fa-plus mr-1     "></i> Register
+                </x-btn-link>
+        @endauth
+
             </h2>
 
-        @endauth
+
+
+
+
+
 
 
 

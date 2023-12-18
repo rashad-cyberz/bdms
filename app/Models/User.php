@@ -25,7 +25,7 @@ class User extends Authenticatable
         'dial_code',
         'mobile',
         'zip_code',
-        'city','district','state','country','blood_type_id'
+        'city','district','state','country','blood_type_id','last_donated_at'
     ];
 
 
@@ -48,6 +48,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_donated_at' => 'datetime',
+
         'password' => 'hashed',
     ];
 

@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
 
             'pincode' => ['required', 'integer'],
             'pincode_name' => ['required', 'string'],
-            'mobile' =>  Rule::unique('users')->where(function ($query) use ($request) {
+            'mobile' => Rule::unique('users')->where(function ($query) use ($request) {
                 return $query->where('dial_code', $request->input('dial_code'))
                     ->where('mobile', $request->input('mobile'));
             }),
@@ -73,6 +73,7 @@ class RegisteredUserController extends Controller
             'dial_code' => $request->input('dial_code'),
             'mobile' => $request->input('mobile'),
             'password' => Hash::make($request->password),
+            'last_donated_at' => $request->last_donated_at ?? null
         ]);
 
         event(new Registered($user));

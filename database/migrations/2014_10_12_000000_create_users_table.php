@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,6 +25,9 @@ return new class extends Migration
             $table->string('country')->nullable()->comment('state / provinces ');
             $table->integer('blood_type_id')->nullable();
             $table->dateTime('last_donated_at')->nullable();
+
+            $table->string('referral_code')->nullable();
+            $table->bigInteger('referred_by')->nullable();
 
 
             $table->tinyInteger('status')

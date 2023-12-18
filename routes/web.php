@@ -20,6 +20,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Route::get('/r/{code}', function ($code) {
+
+    $user = \App\Models\User::where('referral_code', $code)->first();
+    if ($user) {
+        Session::put('refferal_code', $code);
+
+        return redirect()->route('register');
+    } else {
+        abort(404);
+    }
+
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

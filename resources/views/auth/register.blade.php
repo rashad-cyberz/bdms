@@ -10,10 +10,24 @@
         <div>
             <x-input-label for="blood_type" :value="__('Blood Group')" />
 
-            <x-select name="blood_type" class="block mt-1 w-full" required autofocus autocomplete="blood_type"
-                :options=$blood_types  />
+
+            <select name="blood_type" class="block mt-1 w-full" required autofocus autocomplete="blood_type">
+
+                @foreach ($blood_types as $k)
+                    <option value="{{ $k }}">{{ $k }}ve</option>
+                @endforeach
+
+            </select>
+
 
             <x-input-error :messages="$errors->get('blood_type')" class="mt-2" />
+        </div>
+
+        <div>
+            <x-input-label for="name" :value="__('Last Donated')" />
+            <x-text-input type="date" id="last_donated_at" class="block mt-1 w-full" name="last_donated_at"
+                :value="old('last_donated_at')" required autofocus autocomplete="last_donated_at" />
+            <x-input-error :messages="$errors->get('last_donated_at')" class="mt-2" />
         </div>
 
 
@@ -37,8 +51,18 @@
         <div class="flex mt-4">
             <div class="w-30 flex items-center justify-center bg-blue-lighter  text-blue-dark">
 
-                <x-select name="dial_code" class="block mt-1 w-full" required autofocus autocomplete="dial_code"
-                    :options="['91' => '+91']" />
+
+
+
+                <select name="dial_code" class="block mt-1 w-full" required autofocus autocomplete="dial_code">
+
+                    <option value="91">+91</option>
+
+                </select>
+
+
+
+
 
             </div>
             <x-text-input id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')"
@@ -49,8 +73,8 @@
 
         <div class="mt-4">
             <x-input-label for="pincode" :value="__('Pin Code')" />
-            <x-text-input onchange="validatePincode()" id="pincode" class="block mt-1 w-full" type="number"
-                name="pincode" id="pincode" :value="old('pincode')" required autocomplete="pincode" />
+            <x-text-input id="pincode" class="block mt-1 w-full" type="number" name="pincode" id="pincode"
+                :value="old('pincode')" required autocomplete="pincode" />
             <x-input-error :messages="$errors->get('pincode')" class="mt-2" />
             <span class="mt-2 text-sm text-red-600 dark:text-red-400 space-y-1" id="pincodeError"></span>
 
@@ -60,7 +84,11 @@
 
         <div class="mt-4" id="pincodeNameContainer" style="display: none;">
             <x-input-label for="pincode_name" :value="__('Area Name')" />
-            <x-select name="pincode_name" id="pincodeName" class="block mt-1 w-full" :options="[]"></x-select>
+
+
+            <select name="pincode_name" id="pincodeName" class="block mt-1 w-full"></select>
+
+
             <x-input-error :messages="$errors->get('pincode_name')" class="mt-2" />
 
         </div>
@@ -110,7 +138,7 @@
             validatePincode();
 
             // Event listener for pincode input change
-            $("#pincode").on("change", function() {
+            $("#pincode").on("input", function() {
                 validatePincode();
             });
 
@@ -125,7 +153,7 @@
                 $("#pincodeError").hide();
                 $("#pincodeNameContainer").hide();
 
-                if (pincode > 0) {
+                if (pincode.length == 6) {
                     // Make an API call to validate the pincode and get pincode name
                     $.ajax({
                         url: `https://api.postalpincode.in/pincode/${pincode}`,
