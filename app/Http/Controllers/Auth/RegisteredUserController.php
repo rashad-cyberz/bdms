@@ -27,6 +27,8 @@ class RegisteredUserController extends Controller
         $bloodTypes = BloodType::pluck('code', 'id');
 
 
+
+
         return view('auth.register', ['blood_types' => $bloodTypes]);
     }
 
