@@ -33,9 +33,34 @@ Route::get('/r/{code}', function ($code) {
         abort(404);
     }
 
-});
+})->name('web.refer');
 
 Route::get('/dashboard', function () {
+
+
+
+
+    if(auth()->user()->referral_code == null)
+    {
+        $user = auth()->user();
+
+
+
+        $referral_code = null;
+        do {
+
+            $letters = Str::random(3);
+            $numbers = mt_rand(100, 999);
+            $mixedString = str_shuffle($letters . $numbers . Str::random(1));
+
+            $referral_code = $mixedString;
+        } while (\App\Models\User::where("referral_code", "=", $referral_code)->first());
+
+         $user->referral_code = $referral_code;
+         $user->save();
+
+
+    }
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

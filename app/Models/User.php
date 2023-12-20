@@ -25,7 +25,7 @@ class User extends Authenticatable
         'dial_code',
         'mobile',
         'zip_code',
-        'city','district','state','country','blood_type_id','last_donated_at'
+        'city', 'district', 'state', 'country', 'blood_type_id', 'last_donated_at', 'referred_by'
     ];
 
 

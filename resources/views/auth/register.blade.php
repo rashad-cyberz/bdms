@@ -7,6 +7,20 @@
         {{-- Blood Types --}}
 
 
+
+
+
+        @if(isset($referralCode))
+        <div>
+            <x-input-label for="name" :value="__('Referred By')" />
+            <x-text-input type="text"  id="referred_by" class="block mt-1 w-full bg-[beige]" name="referred_by"
+                :value="old('referred_by',$referralCode)" required  readonly autofocus autocomplete="referred_by" />
+            <x-input-error :messages="$errors->get('referred_by')" class="mt-2" />
+        </div>
+
+        @endif
+
+
         <div>
             <x-input-label for="blood_type" :value="__('Blood Group')" />
 

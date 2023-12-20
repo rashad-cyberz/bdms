@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Session;
+use Str;
 
 class RegisteredUserController extends Controller
 {
@@ -29,7 +31,9 @@ class RegisteredUserController extends Controller
 
 
 
-        return view('auth.register', ['blood_types' => $bloodTypes]);
+        $referralCode = Session::get('refferal_code');
+
+        return view('auth.register', ['blood_types' => $bloodTypes, 'referralCode' => $referralCode]);
     }
 
     /**
@@ -58,8 +62,18 @@ class RegisteredUserController extends Controller
 
 
 
+        $referredBy = null;
+
+        if ($request->has('referred_by')) {
+
+
+
+            $referredBy = User::where(['referral_code' =>  $request->referred_by])->first()?->id;
+
+        }
 
         list($city, $district, $state) = explode('/', $request->input('pincode_name'));
+
 
 
 
@@ -74,6 +88,8 @@ class RegisteredUserController extends Controller
             'country' => 'India',
             'dial_code' => $request->input('dial_code'),
             'mobile' => $request->input('mobile'),
+            'referral_code' => $this->generateUniqueCode(),
+            'referred_by' => $referredBy,
             'password' => Hash::make($request->password),
             'last_donated_at' => $request->last_donated_at ?? null
         ]);
@@ -83,5 +99,20 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+
+    private function generateUniqueCode()
+    {
+        do {
+
+            $letters = Str::random(3);
+            $numbers = mt_rand(100, 999);
+            $mixedString = str_shuffle($letters . $numbers . Str::random(1));
+
+            $referral_code = $mixedString;
+        } while (User::where("referral_code", "=", $referral_code)->first());
+
+        return $referral_code;
     }
 }
