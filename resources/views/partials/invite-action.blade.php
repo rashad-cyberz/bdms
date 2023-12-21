@@ -11,10 +11,9 @@
         <div class="w-full sm:w-1/2 md:w-2/4 px-3 text-left">
             <div class="p-5 xl:px-8 md:py-5">
                 <h3 class="text-2xl">Welcome, {{ auth()->user()->name }} !</h3>
-                <h5 class="text-xl mb-3">Lorem ipsum sit amet</h5>
-                <p class="text-sm text-indigo-200">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
-                    sit asperiores perferendis odit enim natus ipsum reprehenderit eos eum impedit tenetur nemo
-                    corporis laboriosam veniam dolores quos necessitatibus, quaerat debitis.</p>
+                <h5 class="text-xl mb-3">Help Us Save More Lives through Referrals!</h5>
+        <p class="text-sm text-indigo-200">We invite you to be a hero beyond donations. Spread the word by referring friends and family to join our portal. For every successful referral, both you and your referred friend will receive special recognition and contribute to our mission of building a strong, supportive community.</p>
+
             </div>
         </div>
 
