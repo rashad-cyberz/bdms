@@ -40,7 +40,7 @@
         <div>
             <x-input-label for="name" :value="__('Last Donated')" />
             <x-text-input type="date" id="last_donated_at" class="block mt-1 w-full" name="last_donated_at"
-                :value="old('last_donated_at')" required autofocus autocomplete="last_donated_at" />
+                :value="old('last_donated_at')"  autofocus autocomplete="last_donated_at" />
             <x-input-error :messages="$errors->get('last_donated_at')" class="mt-2" />
         </div>
 

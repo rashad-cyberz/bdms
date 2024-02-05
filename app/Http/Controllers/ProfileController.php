@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Providers\RouteServiceProvider;
+use App\Services\OTPSend;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +58,61 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+
+    public function mobileVerify(Request $request)
+    {
+
+
+        $user = auth()->user();
+
+        if ($user->mobile_verified_at != NULL) {
+            return redirect()->route('dashboard');
+        }
+        return view('profile.verify', [
+            'user' => $request->user(),
+        ]);
+
+    }
+
+
+    public function doMobileVerify(Request $request)
+    {
+
+
+        $user = auth()->user();
+
+        if ($user->mobile_verified_at != NULL) {
+            return redirect()->route('dashboard');
+        }
+
+
+        $request->validate(['otp' => 'required|numeric|digits:4']);
+
+
+        $otp_session = session()->get('otp_session');
+
+
+        $otpSend = new OTPSend();
+        // $user = $request->user();
+        $dialCode = str_replace('+', '', $user->dial_code);
+
+
+        $otpVerify = $otpSend->verifyOTP($dialCode, $user->mobile, $otp_session['verifyId'], $request->otp);
+
+
+        if ($otpVerify == true) {
+            $user->mobile_verified_at = now();
+            $user->save();
+            session()->forget('otp_session');
+            return redirect(RouteServiceProvider::HOME);
+
+        } else {
+            return back()->withInput()->withErrors(['otp' => 'Invalid OTP / OTP time out']);
+        }
+
+
+
     }
 }

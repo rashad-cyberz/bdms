@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BloodType;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\OTPSend;
 use Faker\Core\Blood;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -68,7 +69,7 @@ class RegisteredUserController extends Controller
 
 
 
-            $referredBy = User::where(['referral_code' =>  $request->referred_by])->first()?->id;
+            $referredBy = User::where(['referral_code' => $request->referred_by])->first()?->id;
 
         }
 
@@ -98,7 +99,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('mobile.verify');
     }
 
 

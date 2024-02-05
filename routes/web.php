@@ -67,6 +67,10 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
 
+
+    Route::get('/verify-mobile', [ProfileController::class, 'mobileVerify'])->name('mobile.verify');
+    Route::post('/verify-mobile', [ProfileController::class, 'doMobileVerify'])->name('mobile.do-verify');
+
     Route::get('/add-donor', [DonorController::class, 'add'])->name('donors.add');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

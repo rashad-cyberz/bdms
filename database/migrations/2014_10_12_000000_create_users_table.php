@@ -18,6 +18,9 @@ return new class extends Migration {
             $table->string('password');
             $table->tinyInteger('dial_code')->default(91);
             $table->bigInteger('mobile');
+
+            $table->timestamp('mobile_verified_at')->nullable();
+
             $table->bigInteger('zip_code')->nullable();
             $table->string('city')->nullable();
             $table->string('district')->nullable();
