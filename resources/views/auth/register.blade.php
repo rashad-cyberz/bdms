@@ -10,14 +10,13 @@
 
 
 
-        @if(isset($referralCode))
-        <div>
-            <x-input-label for="name" :value="__('Referred By')" />
-            <x-text-input type="text"  id="referred_by" class="block mt-1 w-full bg-[beige]" name="referred_by"
-                :value="old('referred_by',$referralCode)" required  readonly autofocus autocomplete="referred_by" />
-            <x-input-error :messages="$errors->get('referred_by')" class="mt-2" />
-        </div>
-
+        @if (isset($referralCode))
+            <div>
+                <x-input-label for="name" :value="__('Referred By')" />
+                <x-text-input type="text" id="referred_by" class="block mt-1 w-full bg-[beige]" name="referred_by"
+                    :value="old('referred_by', $referralCode)" required readonly autofocus autocomplete="referred_by" />
+                <x-input-error :messages="$errors->get('referred_by')" class="mt-2" />
+            </div>
         @endif
 
 
@@ -28,7 +27,7 @@
             <select name="blood_type" class="block mt-1 w-full" required autofocus autocomplete="blood_type">
 
                 @foreach ($blood_types as $k)
-                    <option value="{{ $k }}">{{ $k }}ve</option>
+                    <option value="{{ $k }}" @selected(old('blood_type') == $k)>{{ $k }}ve</option>
                 @endforeach
 
             </select>
@@ -40,7 +39,7 @@
         <div>
             <x-input-label for="name" :value="__('Last Donated')" />
             <x-text-input type="date" id="last_donated_at" class="block mt-1 w-full" name="last_donated_at"
-                :value="old('last_donated_at')"  autofocus autocomplete="last_donated_at" />
+                :value="old('last_donated_at')" autofocus autocomplete="last_donated_at" />
             <x-input-error :messages="$errors->get('last_donated_at')" class="mt-2" />
         </div>
 
@@ -82,7 +81,12 @@
             <x-text-input id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')"
                 required autofocus autocomplete="mobile" />
 
+
+
         </div>
+
+        <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
+
 
 
         <div class="mt-4">
@@ -147,6 +151,22 @@
 
 
     <script>
+        var existPincodeName = "{{ old('pincode_name', null) }}";
+        var parts = null;
+        var city = null;
+
+
+        if (existPincodeName != "") {
+
+            parts = existPincodeName.split('/'); // Split the text by '/'
+            city = parts[0];
+
+        }
+
+
+        console.log(city);
+
+
         $(document).ready(function() {
             // Trigger pincode validation on page load if a pincode is already present
             validatePincode();
@@ -185,8 +205,15 @@
                                 $.each(data[0].PostOffice, function(index, office) {
                                     var option = $("<option>").val(office.Name + '/' + office
                                         .District + '/' + office.State).text(office.Name);
+
+                                    if (city != null && city == office.Name) {
+                                        option.prop('selected', true);
+                                    }
                                     pincodeNameSelect.append(option);
                                 });
+
+
+
                             } else {
                                 // Pincode is invalid, show the error message
                                 $("#pincodeError").show().text("Pincode is invalid");

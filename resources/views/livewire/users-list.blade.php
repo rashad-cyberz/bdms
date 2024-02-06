@@ -37,8 +37,7 @@
                 <div class="relative flex flex-col-reverse">
 
                     <div class="flex items-center space-x-4">
-                        <img
-                            src="https://ui-avatars.com/api/?name={{ $user->name }}" alt=""
+                        <img src="https://ui-avatars.com/api/?name={{ $user->name }}" alt=""
                             class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy" decoding="async">
                         <div class="flex-auto">
                             <div class="text-base text-slate-900 font-semibold dark:text-slate-300"><a
@@ -51,20 +50,32 @@
 
                     </div>
 
-
-                    <span class="absolute -bottom-1 left-10 transform -translate-y-1/2 w-4 h-4 @if($user->last_donated_at == null) bg-yellow-400 @elseif($user->last_donated_at->addMonths(3) < now() ) bg-green-400 @else bg-red-400 @endif border-2 border-white dark:border-gray-800 rounded-full"></span>
+                    <span
+                        class="absolute -bottom-1 left-10 transform -translate-y-1/2 w-4 h-4 @if ($user->last_donated_at == null) bg-yellow-400 @elseif($user->last_donated_at->addMonths(3) < now()) bg-green-400 @else bg-red-400 @endif border-2 border-white dark:border-gray-800 rounded-full"></span>
 
                 </div>
 
-                @if (1 > 2)
-                    <div class="flex p-4">
-                        <a href="#"
-                            class="users-contact-btn bg-blue-400 hover:bg-blue-600  focus:bg-blue-600 active:bg-blue-700">Follow</a>
+
+                <div class="flex p-4 text-center">
+
+
+                    <a  href="{{ route('call', [$user->referral_code]) }}" class="middle none center mr-3 flex items-center justify-center rounded-lg border border-red-500 hover:bg-red-500  p-3 font-sans text-xs font-bold uppercase text-red-500 hover:text-gray-50 transition-all hover:opacity-75 focus:ring focus:ring-red-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        data-ripple-dark="true">
+                        <i class="fas fa-phone text-lg leading-none"></i>
+                    </a>
+
+                    <a  href="{{ route('whatsapp', [$user->referral_code]) }}" class="middle none center mr-3 flex items-center justify-center rounded-lg border border-green-500 hover:bg-green-500  p-3 font-sans text-xs font-bold uppercase text-green-500 hover:text-gray-50 transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        data-ripple-dark="true">
+                        <i class="fa-brands fa-whatsapp text-lg leading-none"></i>
+                    </a>
+
+                    @if (1 > 2)
                         <a href="#"
                             class="users-contact-btn ml-2  bg-red-400  hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700 ">Contact
                         </a>
-                    </div>
-                @endif
+                    @endif
+
+                </div>
 
             </div>
         @endforeach

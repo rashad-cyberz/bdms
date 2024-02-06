@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
 
 
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ], ['mobile.unique' => "mobile number already registered"]);
 
 
 
