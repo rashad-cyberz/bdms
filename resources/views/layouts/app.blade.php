@@ -20,19 +20,9 @@
 
 
 
-    @if (env('APP_ENV') == "local")
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
 
 
-
-    <link rel="stylesheet" href="{{ asset('build/assets/app-9df23d1b.css') }}" />
-
-
-    <script src="{{ asset('build/assets/app-b1941ff8.js') }}"></script>
-
-    @endif
-
+    @include('partials.app-head')
     @livewireStyles
 
 
