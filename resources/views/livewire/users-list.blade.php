@@ -31,6 +31,10 @@
 
 
     <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
+
+        @php
+            $i = 4;
+        @endphp
         @foreach ($users as $user)
             <div
                 class="text-sm leading-4 bg-slate-50  shadow-lg rounded-lg dark:bg-slate-50 dark:highlight-white/5 p-6">
@@ -59,12 +63,14 @@
                 <div class="flex p-4 text-center">
 
 
-                    <a  href="{{ route('call', [$user->referral_code]) }}" class="middle none center mr-3 flex items-center justify-center rounded-lg border border-red-500 hover:bg-red-500  p-3 font-sans text-xs font-bold uppercase text-red-500 hover:text-gray-50 transition-all hover:opacity-75 focus:ring focus:ring-red-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    <a href="{{ route('call', [$user->referral_code]) }}"
+                        class="middle none center mr-3 flex items-center justify-center rounded-lg border border-red-500 hover:bg-red-500  p-3 font-sans text-xs font-bold uppercase text-red-500 hover:text-gray-50 transition-all hover:opacity-75 focus:ring focus:ring-red-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-dark="true">
                         <i class="fas fa-phone text-lg leading-none"></i>
                     </a>
 
-                    <a  href="{{ route('whatsapp', [$user->referral_code]) }}" class="middle none center mr-3 flex items-center justify-center rounded-lg border border-green-500 hover:bg-green-500  p-3 font-sans text-xs font-bold uppercase text-green-500 hover:text-gray-50 transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    <a href="{{ route('whatsapp', [$user->referral_code]) }}"
+                        class="middle none center mr-3 flex items-center justify-center rounded-lg border border-green-500 hover:bg-green-500  p-3 font-sans text-xs font-bold uppercase text-green-500 hover:text-gray-50 transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-dark="true">
                         <i class="fa-brands fa-whatsapp text-lg leading-none"></i>
                     </a>
@@ -78,6 +84,25 @@
                 </div>
 
             </div>
+
+
+            @if ($loop->iteration % 4 == 0 and $loop->iteration % 8 != 0)
+                <div
+                    class="text-sm leading-4 bg-slate-50  shadow-lg rounded-lg dark:bg-slate-50 dark:highlight-white/5 ">
+
+
+
+                    <img src="https://www.analyticsinsight.net/wp-content/uploads/2021/09/Cryptocurrencies-2.jpg"
+                        style="height:100%" class="rounded-lg">
+
+
+                </div>
+
+                @php
+
+                    $i = $i + 5;
+                @endphp
+            @endif
         @endforeach
     </div>
 
